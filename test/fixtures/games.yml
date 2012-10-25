@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  h_team: MyString
+  a_team: MyString
+  date: 2012-10-25
+  h_score: 1
+  a_score: 1
+  handicap_h: 1.5
+
+two:
+  h_team: MyString
+  a_team: MyString
+  date: 2012-10-25
+  h_score: 1
+  a_score: 1
+  handicap_h: 1.5

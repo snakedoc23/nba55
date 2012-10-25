@@ -1,0 +1,9 @@
+
+%h5
+	= Date.today
+%ul
+- @games.each do |game|
+	%li{'data-id' => game.id}
+		= "#{game.a_team} (#{game.a_handicap})"
+		= "@"
+		= "#{game.h_team} (#{-game.a_handicap})"
