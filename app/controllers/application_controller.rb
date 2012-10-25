@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user
+  
 
   private
 
@@ -12,5 +12,7 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.fullpath
     redirect_to login_path, notice: "Login first" unless !current_user.nil? 
   end
+
+  helper_method :current_user
   
 end

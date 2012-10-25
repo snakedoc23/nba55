@@ -3,10 +3,5 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-// @import "compass/reset";
-
-// body * {
-
-// 	font-family: "Kozuka Mincho Pro";
-// 	font-size: 1.5em;
-// }
+@import "compass/reset";
+@import "compass/utilities/general/clearfix";

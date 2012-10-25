@@ -1,23 +1,20 @@
 Nba55::Application.routes.draw do
 
-  get "sessions/new"
-
-  get "sessions/create"
-
-  get "games/index"
-
+  get 'bets/index'
+  get 'sessions/new'
+  get 'sessions/create'
+  get 'games/index'
   match 'games' => 'games#index'
 
-
-  get "login" => "sessions#new", :as => "login"
-  get "logout" => "sessions#destroy", :as => "logout"
-  get "signup" => "users#new", :as => "signup"
-
+  get 'login' => 'sessions#new', :as => 'login'
+  get 'logout' => 'sessions#destroy', :as => 'logout'
+  get 'signup' => 'users#new', :as => 'signup'
 
   resources :users
   resources :sessions
+  resources :bets
 
-
+  post '/bet_ajax' => 'bets#bet_ajax'
 
   root to: 'games#index'
 

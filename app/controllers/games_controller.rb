@@ -4,5 +4,6 @@ class GamesController < ApplicationController
   
   def index
   	@games = Game.today
+  	@bet = Bet.new
   end
 end

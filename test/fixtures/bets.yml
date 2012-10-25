@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  result: false
+  user_id: 1
+  game_id: 1
+  handicap: 1.5
+  team: MyString
+
+two:
+  result: false
+  user_id: 1
+  game_id: 1
+  handicap: 1.5
+  team: MyString
