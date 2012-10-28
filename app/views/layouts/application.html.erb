@@ -7,15 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-  <% if current_user %>
-    Logged in as <%= current_user.email %>
-    <%= link_to "Log out", logout_path %>
-  <% else %>
-    <%= link_to "Log in", login_path %>
-  <% end %>
-
-<%= yield %>
-
+  <div class="header clearfix">
+    <div class="logo">
+      <h1>NBA55</h1>
+    </div>
+    <div class="login">
+      <% if current_user %>
+        <%= link_to "Logout", logout_path %>
+        <span class="user">
+        <%= current_user.email %>
+        </span>
+      <% else %>
+        <%= link_to "Login", login_path %>
+      <% end %>
+    </div>
+  </div>
+  <div class="content">
+  <%= yield %>
+  </div>
 </body>
 </html>
