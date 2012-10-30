@@ -56,9 +56,7 @@ body {
     color: $dark;
     font-size: 1.3em;
     padding-top: 10px;
-    &:hover {
-      padding-left: 300px;
-    }
+
   }
 }
 .login {
@@ -87,22 +85,39 @@ body {
   }
 }
 
+.games {
+  width: 70%;
+  float: left;
+}
+.bet {
+  width: 25%;
+  float: left;
+}
+
 .date {
   text-align: center;
   font-size: .7em;
   padding-top: .5em;
 
 }
+
+
+
 .game {
   list-style: none;
   display: block;
-  width: 70%;
-  border-right: 1px solid white;
+  // width: 70%;
+  // border-right: 1px solid white;
   color: $blue;
   @include text-shadow();
   .team {
     width: 50%;
+    cursor: pointer;
     float: left;
+    &.select {
+      color: white;
+      text-shadow: 0px 0px 0px white;
+    }
   }
 }
 
@@ -161,4 +176,8 @@ input {
     margin-left: 35%;
   }
 }
-
+.bet_ok {
+  display: none;
+  @include text-shadow();
+  font-size: 2em;
+}

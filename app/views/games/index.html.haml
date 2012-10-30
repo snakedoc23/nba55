@@ -1,21 +1,42 @@
-
 %h5.date
   = Date.today
-%ul
-- @games.each do |game|
-  %li{'data-id' => game.id, :class => 'game clearfix'}
-    .a_team.team
-      = "#{game.a_team} (#{game.a_handicap})"
-    .h_team.team
-      = "#{game.h_team} (#{-game.a_handicap})"
+.clearfix
+  .games
+    %ul
+    - @games.each do |game|
+      %li{'data-id' => game.id, :class => 'game clearfix'}
+        .a_team.team{'data-team' => 'a'}
+          = "#{game.a_team} (#{game.a_handicap})"
+        .h_team.team{'data-team' => 'h'}
+          = "#{game.h_team} (#{-game.a_handicap})"
+
+  .bet
+    - if !@bets.count
 
 
-= form_tag bets_path do
-  - 4.times do |i|
-    = hidden_field_tag "bets[#{i}][game_id]"
-    = hidden_field_tag "bets[#{i}][team]"
-    = hidden_field_tag "bets[#{i}][handicap]"
-    = hidden_field_tag "bets[#{i}][team]"
-  = hidden_field_tag 'authenticity_token', form_authenticity_token
-  = submit_tag 'bet', class: 'button'
 
+      .bet_counter
+        3
+
+      = form_tag bets_path do
+        - 4.times do |i|
+          = hidden_field_tag "bets[#{i}][game_id]"
+          = hidden_field_tag "bets[#{i}][team]"
+          = hidden_field_tag "bets[#{i}][handicap]"
+          = hidden_field_tag "bets[#{i}][team]"
+        = hidden_field_tag 'authenticity_token', form_authenticity_token
+        = submit_tag 'bet', class: 'button', id: 'submit_bet'
+    - else
+      %h2
+        Typy Twe:
+      - @bets.each do |bet|
+        = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
+        = bet.handicap
+
+    .bet_ok
+      Bydzie
+
+    #loader
+
+  / %a{:class => "btn", :href => "update_lines"}
+  /   Update lines

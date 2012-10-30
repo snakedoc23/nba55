@@ -13,3 +13,26 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(function() {
+
+
+var cl = new CanvasLoader('loader');
+cl.setColor('#ffffff'); // default is '#000000'
+cl.setShape('spiral'); // default is 'oval'
+cl.setDiameter(193); // default is 40
+cl.setDensity(138); // default is 40
+cl.setRange(1.2); // default is 1.3
+cl.setSpeed(3); // default is 2
+cl.setFPS(27); // default is 24
+// cl.show(); // Hidden by default
+
+
+$('body').ajaxStart(function() {
+  cl.show();
+});
+$('body').ajaxComplete(function() {
+  cl.hide();
+});
+  
+});

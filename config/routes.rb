@@ -16,6 +16,9 @@ Nba55::Application.routes.draw do
 
   post '/bet_ajax' => 'bets#bet_ajax'
 
+  match "/update_lines" => "games#update_lines"
+  match "/:date" => "games#day"
+  
   root to: 'games#index'
 
   # The priority is based upon order of creation:

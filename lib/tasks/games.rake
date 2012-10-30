@@ -4,7 +4,7 @@ task :fetch_games => :environment do
   require 'open-uri'
 
   # (25).each do |x|
-    x = 25
+    x = 30
     month = "201210"
     day = x.to_s
     day = "0#{x.to_s}" if x < 10
