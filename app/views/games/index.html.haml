@@ -16,7 +16,7 @@
 
   .bet.five.columns
     - if @bets.empty?
-      .bet_counter
+      %h1.bet_counter
         4
 
       = form_tag bets_path do
@@ -26,23 +26,23 @@
           = hidden_field_tag "bets[#{i}][handicap]"
           = hidden_field_tag "bets[#{i}][team]"
         = hidden_field_tag 'authenticity_token', form_authenticity_token
-        = submit_tag 'bet', class: 'button', id: 'submit_bet'
+        = submit_tag 'bet', class: 'button radius', id: 'submit_bet'
     - else
       %h3
         Typy Twe:
+      %ul
+      - @bets.each do |bet|
+        %li
+          = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
+          = bet.handicap
+      - if  !@bets_other.empty?
+        %h3
+        Typy nie twe:
         %ul
-        - @bets.each do |bet|
+        - @bets_other.each do |bet|
           %li
             = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
             = bet.handicap
-      - if  !@bets_other.empty?
-        %h3
-          Typy nie twe:
-          %ul
-          - @bets_other.each do |bet|
-            %li
-              = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
-              = bet.handicap
 
     .bet_ok
       Bydzie
@@ -54,6 +54,14 @@
 
 
 .row
-  - @users.each do |u|
-    - if !u.bets.empty?
-      = "#{u.email} : #{u.bet_score}"
+  .twelve.columns
+    - @users.each do |u|
+      - if !u.bets.empty?
+        = "#{u.email} : #{u.bet_score}"
+
+
+.row 
+  .days_nav.twelve.columns
+    %a{:href => "./#{Date.yesterday.strftime("%Y%m%d")}", :class => "btn"}
+      %i{:class => "icon-calendar prev"}
+      Wczoraj

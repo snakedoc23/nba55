@@ -1,10 +1,13 @@
-= @date
+.row
+  = @date
 
-- @games.each do |game|
-  = game.a_team
+  - @games.each do |game|
+    = game.a_team
 
-%h3
-  Typy Twe:
+
+
+  %h3
+    Typy Twe:
   %ul
   - @bets.each do |bet|
     %li
@@ -15,9 +18,14 @@
       = " @ "
       = bet.game.h_team
       = " #{bet.game.a_score}:#{bet.game.h_score} --- #{bet.result}"
-- if  !@bets_other.empty?
-  %h3
-    Typy nie twe:
+      = bet.result == 1 ? 'ok' : '-'
+
+
+
+
+  - if  !@bets_other.empty?
+    %h3
+      Typy nie twe:
     %ul
     - @bets_other.each do |bet|
       %li
@@ -28,3 +36,26 @@
         = " @ "
         = bet.game.h_team
         = " #{bet.game.a_score}:#{bet.game.h_score} --- #{bet.result}"
+        = bet.result == 1 ? 'ok' : '-'
+
+
+
+
+
+
+
+  .days_nav
+    %a{:href => "./#{@prev_day}", :class => "btn", :title => @prev_day.to_date}
+      %i{:class => "icon-arrow-left prev"}
+      Prev
+
+    %a{:href => "./#{@next_day}", :class => "btn next"}
+      Next
+      %i{:class => "icon-arrow-right"}
+
+
+.row
+  .twelve.columns
+    - @users.each do |u|
+      - if !u.bets.empty?
+        = "#{u.email} : #{u.bet_score(@date)}"

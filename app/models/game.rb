@@ -7,8 +7,22 @@ class Game < ActiveRecord::Base
   # scope :today, where(date: '20121025'.to_date)
 
 
-
-
+  def self.update_scores(day = nil)
+    day = day || Date.yesterday.strftime("%Y%m%d")
+    url = "http://www.sbrforum.com/nba-basketball/odds-scores/#{day}/"
+    doc = Nokogiri::HTML(open(url))
+    doc.css("table.tbl-odds").each do |game|
+      g = Game.where(:date => "#{day}".to_date).where(:h_team => game.css(".tbl-odds-c2").last.text).first
+      if g
+        g.a_score = game.css(".tbl-odds-c3").first.text.to_i
+        g.h_score = game.css(".tbl-odds-c3").last.text.to_i
+        g.save
+      else
+        p "No games to update in db"
+      end
+    end
+    # update results for all bets
+  end
 
   def self.update_lines(day = nil)
     day = day || Date.today.strftime("%Y%m%d")

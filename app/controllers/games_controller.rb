@@ -12,6 +12,8 @@ class GamesController < ApplicationController
     @games = Game.today
     if @games.empty?
       Game.fetch_next_games
+      Game.update_scores
+
     end
 
     @bet = Bet.new
@@ -28,6 +30,9 @@ class GamesController < ApplicationController
     if @date  == Date.today.to_date
       redirect_to :action => index
     end
+
+    @users = User.all
+
     @games = Game.where(:date => @date)
     @prev_day = @date.yesterday.strftime("%Y%m%d")
     @next_day = @date.next_day.strftime("%Y%m%d")

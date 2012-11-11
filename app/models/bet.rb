@@ -6,15 +6,7 @@ class Bet < ActiveRecord::Base
 
 
   def update_result
-
-    # team // a or h 
-    # handicap
-    # self.game
-
-
-    # self.save
-
-    if game.h_score
+    if game.h_score && result.nil?
       if team == 'a'
         score = game.a_score + handicap - game.h_score
       else
@@ -28,11 +20,7 @@ class Bet < ActiveRecord::Base
       else
         self.result = 0
       end
-
       save
     end
-
-    
-
   end
 end
