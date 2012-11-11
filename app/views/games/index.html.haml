@@ -1,10 +1,11 @@
 .row
   .twelve.columns
-    %h5.date
-      = Date.today
+    %h4.date
+      %small
+        = Date.today
+    %hr
 .row
   .games.seven.columns
-    %ul
     - @games.each do |game|
       %ul{'data-id' => game.id, :class => 'button-group radius'}
         %li.a_team.team{'data-team' => 'a'}
@@ -15,53 +16,81 @@
             = "#{game.h_team} (#{-game.a_handicap})"
 
   .bet.five.columns
-    - if @bets.empty?
-      %h1.bet_counter
-        4
+    .panel
+      - if @bets.empty?
+        %h1.bet_counter
+          4
 
-      = form_tag bets_path do
-        - 4.times do |i|
-          = hidden_field_tag "bets[#{i}][game_id]"
-          = hidden_field_tag "bets[#{i}][team]"
-          = hidden_field_tag "bets[#{i}][handicap]"
-          = hidden_field_tag "bets[#{i}][team]"
-        = hidden_field_tag 'authenticity_token', form_authenticity_token
-        = submit_tag 'bet', class: 'button radius', id: 'submit_bet'
-    - else
-      %h3
-        Typy Twe:
-      %ul
-      - @bets.each do |bet|
-        %li
-          = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
-          = bet.handicap
-      - if  !@bets_other.empty?
+        = form_tag bets_path do
+          - 4.times do |i|
+            = hidden_field_tag "bets[#{i}][game_id]"
+            = hidden_field_tag "bets[#{i}][team]"
+            = hidden_field_tag "bets[#{i}][handicap]"
+            = hidden_field_tag "bets[#{i}][team]"
+          = hidden_field_tag 'authenticity_token', form_authenticity_token
+          = submit_tag 'bet', class: 'button radius', id: 'submit_bet'
+      - else
         %h3
-        Typy nie twe:
-        %ul
-        - @bets_other.each do |bet|
-          %li
-            = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
-            = bet.handicap
+          %small
+            = @bets.first.user.email
+        %ol
+          - @bets.each do |bet|
+            %li
+              - if bet.team == 'a'
+                %span.radius.label
+                  = "#{bet.game.a_team} #{bet.handicap}"
+                = "@"
+                %span
+                  = " #{bet.game.h_team}"
+              - else 
+                = "#{bet.game.a_team} @"
+                %span.radius.label
+                  = "#{bet.game.h_team} #{bet.handicap}"
+        - if  !@bets_other.empty?
+          %h3
+            %small
+              = @bets_other.first.user.email
+          %ol
+            - @bets_other.each do |bet|
+              %li
+                - if bet.team == 'a'
+                  %span.radius.label
+                    = "#{bet.game.a_team} #{bet.handicap}"
+                  = "@"
+                  %span
+                    = " #{bet.game.h_team}"
+                - else 
+                  = "#{bet.game.a_team} @"
+                  %span.radius.label
+                    = "#{bet.game.h_team} #{bet.handicap}"
 
     .bet_ok
       Bydzie
 
     #loader
 
-  %a{:class => "btn", :href => "update_lines"}
-    Update lines
+  .twelve.columns
+    %hr
+
+
 
 
 .row
   .twelve.columns
-    - @users.each do |u|
-      - if !u.bets.empty?
-        = "#{u.email} : #{u.bet_score}"
+    .panel
+      - @users.each do |u|
+        - if !u.bets.empty?
+          %h4
+            %small
+              = "#{u.email} : #{u.bet_score}"
 
 
 .row 
-  .days_nav.twelve.columns
-    %a{:href => "./#{Date.yesterday.strftime("%Y%m%d")}", :class => "btn"}
-      %i{:class => "icon-calendar prev"}
-      Wczoraj
+  .twelve.columns
+    %ul.inline-list
+      %li
+        %a{:href => "./#{Date.yesterday.strftime("%Y%m%d")}", :class => "btn"}
+          Wczoraj
+      %li
+        %a{:class => "btn", :href => "update_lines"}
+          Update lines
