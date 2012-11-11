@@ -4,4 +4,35 @@ class Bet < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
+
+  def update_result
+
+    # team // a or h 
+    # handicap
+    # self.game
+
+
+    # self.save
+
+    if game.h_score
+      if team == 'a'
+        score = game.a_score + handicap - game.h_score
+      else
+        score = game.h_score + handicap - game.a_score
+      end
+
+      if score > 0
+        self.result = 1
+      elsif score < 0
+        self.result = -1
+      else
+        self.result = 0
+      end
+
+      save
+    end
+
+    
+
+  end
 end

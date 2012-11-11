@@ -31,3 +31,31 @@ task :fetch_games => :environment do
       g.save
   end
 end
+
+task :update_scores => :environment do
+  require 'nokogiri'
+  require 'open-uri'
+
+  # (25).each do |x|
+    x = 10
+    month = "201211"
+    day = x.to_s
+    day = "0#{x.to_s}" if x < 10
+    day = "#{month}#{day}"
+    url = "http://www.sbrforum.com/nba-basketball/odds-scores/#{day}/"
+    doc = Nokogiri::HTML(open(url))
+
+    puts doc.at_css("title").text.split.last
+    x = 0;
+    doc.css("table.tbl-odds").each do |game|
+      g = Game.where(:date => "#{day}".to_date).where(:h_team => game.css(".tbl-odds-c2").last.text).first
+
+      g.a_score = game.css(".tbl-odds-c3").first.text.to_i
+      g.h_score = game.css(".tbl-odds-c3").last.text.to_i
+
+      puts game.css(".tbl-odds-c5").first.text
+      
+
+      g.save
+  end
+end

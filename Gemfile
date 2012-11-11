@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
+
+gem 'sqlite3'
 gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+
 
 
 # Gems used only for assets and not required
@@ -15,6 +17,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails', '~> 1.0.3'
   # gem 'zurb-foundation', '~> 3.0.9'
+  gem 'zurb-foundation'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

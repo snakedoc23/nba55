@@ -44,7 +44,7 @@ bet =
   update_counter: ->
     console.log this.bets.length
     counter = $('.bet_counter')
-    counter.text( 3 - this.bets.length);
+    counter.text( 4 - this.bets.length);
     # console.log bet_count
 
   bet_ajax: ->

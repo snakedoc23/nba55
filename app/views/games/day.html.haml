@@ -1,0 +1,30 @@
+= @date
+
+- @games.each do |game|
+  = game.a_team
+
+%h3
+  Typy Twe:
+  %ul
+  - @bets.each do |bet|
+    %li
+      = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
+      = bet.handicap
+      = " : "
+      = bet.game.a_team
+      = " @ "
+      = bet.game.h_team
+      = " #{bet.game.a_score}:#{bet.game.h_score} --- #{bet.result}"
+- if  !@bets_other.empty?
+  %h3
+    Typy nie twe:
+    %ul
+    - @bets_other.each do |bet|
+      %li
+        = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
+        = bet.handicap
+        = " : "
+        = bet.game.a_team
+        = " @ "
+        = bet.game.h_team
+        = " #{bet.game.a_score}:#{bet.game.h_score} --- #{bet.result}"

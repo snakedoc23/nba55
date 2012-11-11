@@ -1,22 +1,23 @@
-%h5.date
-  = Date.today
-.clearfix
-  .games
+.row
+  .twelve.columns
+    %h5.date
+      = Date.today
+.row
+  .games.seven.columns
     %ul
     - @games.each do |game|
-      %li{'data-id' => game.id, :class => 'game clearfix'}
-        .a_team.team{'data-team' => 'a'}
-          = "#{game.a_team} (#{game.a_handicap})"
-        .h_team.team{'data-team' => 'h'}
-          = "#{game.h_team} (#{-game.a_handicap})"
+      %ul{'data-id' => game.id, :class => 'button-group radius'}
+        %li.a_team.team{'data-team' => 'a'}
+          %span.button
+            = "#{game.a_team} (#{game.a_handicap})"
+        %li.h_team.team{'data-team' => 'h'}
+          %span.button
+            = "#{game.h_team} (#{-game.a_handicap})"
 
-  .bet
-    - if !@bets.count
-
-
-
+  .bet.five.columns
+    - if @bets.empty?
       .bet_counter
-        3
+        4
 
       = form_tag bets_path do
         - 4.times do |i|
@@ -27,16 +28,32 @@
         = hidden_field_tag 'authenticity_token', form_authenticity_token
         = submit_tag 'bet', class: 'button', id: 'submit_bet'
     - else
-      %h2
+      %h3
         Typy Twe:
-      - @bets.each do |bet|
-        = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
-        = bet.handicap
+        %ul
+        - @bets.each do |bet|
+          %li
+            = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
+            = bet.handicap
+      - if  !@bets_other.empty?
+        %h3
+          Typy nie twe:
+          %ul
+          - @bets_other.each do |bet|
+            %li
+              = bet.team == 'a' ? bet.game.a_team : bet.game.h_team
+              = bet.handicap
 
     .bet_ok
       Bydzie
 
     #loader
 
-  / %a{:class => "btn", :href => "update_lines"}
-  /   Update lines
+  %a{:class => "btn", :href => "update_lines"}
+    Update lines
+
+
+.row
+  - @users.each do |u|
+    - if !u.bets.empty?
+      = "#{u.email} : #{u.bet_score}"

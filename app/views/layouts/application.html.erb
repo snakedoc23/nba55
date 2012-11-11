@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-  <title>Nba55</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+	<meta charset="utf-8" />
+	
+	<!-- Uncomment to make IE8 render like IE7 -->
+	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+	
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<title>NBA55</title>
+  
+	<!-- Included CSS Files -->
+	<%= stylesheet_link_tag    "application" %>
+	
+	<!-- Included JS Files  -->
+	<%= javascript_include_tag "application" %>
+  
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="header clearfix">
-    <div class="logo">
-      <h1>NBA55</h1>
-    </div>
-    <div class="login">
-      <% if current_user %>
-        <%= link_to "Logout", logout_path %>
-        <span class="user">
-        <%= current_user.email %>
-        </span>
-      <% else %>
-        <%= link_to "Login", login_path %>
-      <% end %>
-    </div>
-  </div>
-  <div class="content">
   <%= yield %>
-  </div>
 </body>
 </html>
