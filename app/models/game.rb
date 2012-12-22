@@ -21,7 +21,7 @@ class Game < ActiveRecord::Base
         p "No games to update in db"
       end
     end
-    # update results for all bets
+    Bet.update_results
   end
 
   def self.update_lines(day = nil)

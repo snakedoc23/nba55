@@ -4,6 +4,9 @@ class Bet < ActiveRecord::Base
   belongs_to :user
   belongs_to :game
 
+  def self.update_results
+    self.all.each {|b| b.update_result}
+  end
 
   def update_result
     if game.h_score && result.nil?

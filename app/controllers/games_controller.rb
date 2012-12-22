@@ -21,7 +21,7 @@ class GamesController < ApplicationController
 
   def update_lines
     Game.update_lines
-    redirect_to :action => "index"
+    redirect_to root_path
   end
 
 
